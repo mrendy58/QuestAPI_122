@@ -10,10 +10,10 @@ import com.example.p8meeting12.repository.MahasiswaRepository
 import kotlinx.coroutines.launch
 
 class InsertViewModel(private val mhs: MahasiswaRepository): ViewModel() {
-    var uiState by mutableStateOf(InsertUiEvent())
+    var uiState by mutableStateOf(InsertUiState())
         private set
-    fun updateInsertMhsState(insertUiEvent.InsertUiEvent) {
-        uiState = InsertUiEvent(insertUiEvent = InsertUiEvent)
+    fun updateInsertMhsState(insertUiEvent: InsertUiEvent) {
+        uiState = InsertUiState(insertUiEvent = insertUiEvent)
     }
     suspend fun insertMhs() {
         viewModelScope.launch {
@@ -25,6 +25,10 @@ class InsertViewModel(private val mhs: MahasiswaRepository): ViewModel() {
         }
     }
 }
+
+data class InsertUiState(
+    val insertUiEvent: InsertUiEvent = InsertUiEvent()
+)
 
 data class InsertUiEvent(
     val nim: String = "",
