@@ -30,6 +30,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.p8meeting12.R
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.IconButton
 import com.example.p8meeting12.model.Mahasiswa
 import com.example.p8meeting12.ui.customwidget.CustomTopAppBar
 import com.example.p8meeting12.ui.navigation.DestinasiNavigasi
@@ -168,6 +175,56 @@ fun MhsLayout(
                 onDeleteClick = {
                     onDeleteClick(mhs)
                 }
+            )
+        }
+    }
+}
+
+@Composable
+fun MhsCard(
+    mahasiswa: Mahasiswa,
+    modifier: Modifier = Modifier,
+    onDeleteClick: (Mahasiswa) -> Unit = {}
+){
+    Card(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.medium,
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = mahasiswa.nama,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                Spacer(Modifier.weight(1f))
+                IconButton(onClick = { onDeleteClick(mahasiswa)}) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = null,
+                    )
+                }
+
+                Text(
+                    text = mahasiswa.nim,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+
+            Text(
+                text = mahasiswa.kelas,
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Text(
+                text = mahasiswa.alamat,
+                style = MaterialTheme.typography.titleMedium
             )
         }
     }
