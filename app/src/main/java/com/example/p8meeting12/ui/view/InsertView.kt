@@ -1,5 +1,7 @@
 package com.example.p8meeting12.ui.view
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -11,11 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.p8meeting12.ui.customwidget.CustomTopAppBar
 import com.example.p8meeting12.ui.viewmodel.InsertViewModel
 import kotlinx.coroutines.launch
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import com.example.p8meeting12.ui.navigation.DestinasiNavigasi
+import com.example.p8meeting12.ui.viewmodel.InsertUiEvent
+import com.example.p8meeting12.ui.viewmodel.InsertUiState
 
 
 object DestinasiEntry : DestinasiNavigasi {
@@ -60,5 +68,31 @@ fun EntryMhsScreen(
                 .verticalScroll(rememberScrollState())
                 .fillMaxWidth()
         )
+    }
+}
+
+@Composable
+fun EntryBody(
+    insertUiState: InsertUiState,
+    onSiswaValueChange: (InsertUiEvent) -> Unit,
+    onSaveClick: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    Column(
+        verticalArrangement = Arrangement.spacedBy(18.dp),
+        modifier = modifier.padding(12.dp)
+    ) {
+        FormInput(
+            insertUiEvent = insertUiState.insertUiEvent,
+            onValueChange = onSiswaValueChange,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = onSaveClick,
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Simpan")
+        }
     }
 }
