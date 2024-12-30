@@ -1,5 +1,6 @@
 package com.example.p8meeting12.ui.view
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
@@ -13,15 +14,58 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CardDefaults
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.p8meeting12.ui.navigation.DestinasiNavigasi
+import com.example.p8meeting12.ui.viewmodel.DetailUiState
+import com.example.p8meeting12.ui.viewmodel.toMhs
 
 object DestinasiDetail: DestinasiNavigasi {
     override val route = "detail"
     const val NIM = "nim"
     override val titleRes = "Detail Mahasiswa"
     val routeWithArg = "$route/{$NIM}"
+}
+
+@Composable
+fun BodyDetailMhs(
+    detailUiState: DetailUiState,
+    modifier: Modifier = Modifier
+) {
+    when {
+        detailUiState.isLoading -> {
+            Box(
+                modifier = modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+        detailUiState.isError -> {
+            Box(
+                modifier = modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = detailUiState.errorMessage,
+                    color = Color.Red
+                )
+            }
+        }
+        detailUiState.isUiEventNotEmpty -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                ItemDetailMhs(
+                    mahasiswa = detailUiState.detailUiEvent.toMhs(),
+                    modifier = modifier
+                )
+            }
+        }
+    }
 }
 
 @Composable
