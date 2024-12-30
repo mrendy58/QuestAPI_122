@@ -35,6 +35,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.IconButton
 import com.example.p8meeting12.model.Mahasiswa
@@ -189,7 +190,8 @@ fun MhsCard(
     Card(
         modifier = modifier,
         shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF042D42))
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
